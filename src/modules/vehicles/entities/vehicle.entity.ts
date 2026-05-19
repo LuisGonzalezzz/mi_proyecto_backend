@@ -3,9 +3,11 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Sale } from '../../sales/entities/sale.entity';
 
 @Entity('vehicles')
 export class Vehicle {
@@ -41,4 +43,7 @@ export class Vehicle {
 
   @DeleteDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   deleted_at: Date;
+
+  @OneToMany(() => Sale, (sale) => sale.vehicle)
+  sales: Sale[];
 }
